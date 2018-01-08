@@ -6,7 +6,7 @@ buildscript {
         mavenCentral()
     }
     dependencies {
-        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.0.1'
+        classpath 'net.wasdev.wlp.gradle.plugins:liberty-gradle-plugin:2.1'
         classpath files('gradle/wlp-anttasks.jar')
         {{#has platforms 'bluemix'}}
         classpath 'org.cloudfoundry:cf-gradle-plugin:1.1.2'
@@ -109,6 +109,28 @@ liberty {
             include = packagingType
         }
      }
+}
+
+libertyPackage {
+    def originalOutputDir
+    doFirst {
+        originalOutputDir = server.outputDir
+        server.outputDir = "$buildDir/liberty-alt-output-dir"
+    }
+    doLast {
+        server.outputDir = originalOutputDir
+    }
+}
+
+installFeature {
+    def originalOutputDir
+    doFirst {
+        originalOutputDir = server.outputDir
+        server.outputDir = "$buildDir/liberty-alt-output-dir"
+    }
+    doLast {
+        server.outputDir = originalOutputDir
+    }
 }
 
 task libertyStartTestServer(type: net.wasdev.wlp.gradle.plugins.tasks.StartTask){
