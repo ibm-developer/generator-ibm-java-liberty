@@ -6,7 +6,6 @@
     "build.gradle",
     "settings.gradle",
     {{/has}}
-
     {{#has buildType 'gradle'}}
     "pom.xml",
     {{/has}}
