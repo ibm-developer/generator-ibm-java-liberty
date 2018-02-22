@@ -71,8 +71,8 @@ function AssertLiberty() {
       self.assertFeature(exists, "websocket-1.1");
 
       const depcheck = exists ? tests.test(buildType).assertDependency : tests.test(buildType).assertNoDependency;
-      depcheck('provided', 'com.ibm.runtimetools', 'javametrics-agent', '1.1.0');
-      depcheck('provided', 'com.ibm.runtimetools', 'javametrics-dash', '1.1.0');
+      depcheck('provided', 'com.ibm.runtimetools', 'javametrics-agent', '\\[1.1,2.0\\)');
+      depcheck('provided', 'com.ibm.runtimetools', 'javametrics-dash', '\\[1.1,2.0\\)');
 
     });
   }
