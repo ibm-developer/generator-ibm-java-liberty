@@ -27,7 +27,7 @@ const JVM_OPTIONS = 'src/main/liberty/config/jvm.options';
 const IBM_WEB_EXT = 'src/main/webapp/WEB-INF/ibm-web-ext.xml';
 const JVM_OPTIONS_JAVAAGENT = '-javaagent:resources/javametrics-agent.jar';
 const LIBERTY_VERSION = '17.0.0.4';   //current Liberty version to check for
-const LIBERTY_BETA_VERSION = '2017.+';   //current Liberty beta version to check for
+const LIBERTY_BETA_VERSION = '2018.+';   //current Liberty beta version to check for
 const tests = require('ibm-java-codegen-common');
 
 //handy function for checking both existence and non-existence

@@ -90,7 +90,7 @@ task printMessageAboutRunningServer {
 liberty {
     {{#libertybeta}}
     install {
-        version = "2017.+"
+        version = "2018.+"
     }
     {{/libertybeta}}
     server{
