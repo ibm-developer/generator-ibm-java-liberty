@@ -149,7 +149,7 @@
                     {{#libertybeta}}
                     <install>
                         <type>webProfile7</type>
-                        <version>2017.+</version>
+                        <version>2018.+</version>
                     </install>
                     {{else}}
                     <assemblyArtifact>
