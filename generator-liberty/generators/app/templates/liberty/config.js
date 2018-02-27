@@ -14,8 +14,9 @@
     {"groupId" : "org.apache.cxf", "artifactId" : "cxf-rt-rs-client", "version" : "3.1.11", "scope" : "test"},
     {"groupId" : "org.glassfish", "artifactId" : "javax.json", "version" : "1.0.4", "scope" : "test"},
     {{#javametrics}}
-    {"groupId" : "com.ibm.runtimetools", "artifactId" : "javametrics-agent", "version" : "[1.1,2.0)", "scope" : "provided"},
-    {"groupId" : "com.ibm.runtimetools", "artifactId" : "javametrics-dash", "version" : "[1.1,2.0)", "scope" : "provided", "type" : "war"}
+    {"groupId" : "com.ibm.runtimetools", "artifactId" : "javametrics-agent", "version" : "[1.2,2.0)", "scope" : "provided"},
+    {"groupId" : "com.ibm.runtimetools", "artifactId" : "javametrics-dash", "version" : "[1.2,2.0)", "scope" : "provided", "type" : "war"},
+    {"groupId" : "com.ibm.runtimetools", "artifactId" : "javametrics-rest", "version" : "[1.2,2.0)", "scope" : "provided", "type" : "war"}
     {{/javametrics}}
   ],
   "frameworkDependencies" : [
