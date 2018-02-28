@@ -26,7 +26,6 @@ const README_MD = 'README.md';
 const JVM_OPTIONS = 'src/main/liberty/config/jvm.options';
 const IBM_WEB_EXT = 'src/main/webapp/WEB-INF/ibm-web-ext.xml';
 const JVM_OPTIONS_JAVAAGENT = '-javaagent:resources/javametrics-agent.jar';
-const LIBERTY_VERSION = '17.0.0.4';   //current Liberty version to check for
 const LIBERTY_BETA_VERSION = '2018.+';   //current Liberty beta version to check for
 const tests = require('ibm-java-codegen-common');
 
@@ -77,10 +76,10 @@ function AssertLiberty() {
     });
   }
 
-  this.assertVersion = function(buildType, libertybeta) {
-    describe('contains Liberty version ' + LIBERTY_VERSION, function() {
+  this.assertVersion = function(buildType, libertyVersion) {
+    describe('contains Liberty version ' + libertyVersion, function() {
       const check = getBuildCheck(true, buildType);
-      if(libertybeta) {
+      if(libertyVersion === 'beta') {
         if(buildType === 'gradle') {
           check.content('version = "' + LIBERTY_BETA_VERSION + '"');
         }
@@ -92,12 +91,12 @@ function AssertLiberty() {
         }
       } else {
         if(buildType === 'gradle') {
-          check.content('wlp-webProfile7:' + LIBERTY_VERSION);
+          check.content('wlp-webProfile7:' + libertyVersion);
         }
         if(buildType === 'maven') {
           const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
           const artifactId = 'wlp-webProfile7';
-          const version = LIBERTY_VERSION.replace(/\./g, '\\.');
+          const version = libertyVersion.replace(/\./g, '\\.');
           const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
           const regex = new RegExp(content);
           check.content(regex);

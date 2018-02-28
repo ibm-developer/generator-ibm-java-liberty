@@ -21,8 +21,7 @@
 const defaultModule = require('ibm-java-codegen-common').defaults;
 
 const DEFAULTS = {
-  technologies : {desc : 'Technologies to configure when using the prompt:liberty promptType', type : (value)=>{return Array.isArray(value) ? value : value.split(",");}, default : ['rest']},
-  libertybeta : {desc : 'Enable latest beta version of Liberty', type : String, default : undefined}
+  technologies : {desc : 'Technologies to configure when using the prompt:liberty promptType', type : (value)=>{return Array.isArray(value) ? value : value.split(",");}, default : ['rest']}
 };
 
 module.exports = class extends defaultModule {

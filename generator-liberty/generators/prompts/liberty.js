@@ -104,10 +104,10 @@ Extension.prototype.getQuestions = function () {
     default: false
   }, {
     when: this.show.bind(this),
-    type: 'confirm',
-    name: 'libertybeta',
-    message: 'Install latest beta version of Liberty?',
-    default: (answers) => {return answers.libertybeta}
+    type: 'input',
+    name: 'libertyVersion',
+    message: 'Specify version of Liberty--\'beta\' or a specific GA version.',
+    default: '17.0.0.4'
   }, {
     when: this.show.bind(this),
     type: 'confirm',
