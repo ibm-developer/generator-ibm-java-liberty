@@ -14,24 +14,9 @@
  * limitations under the License.
  */
 
-//module for storing default configuration values
+'use strict'
 
-'use strict';
-
-const defaultModule = require('ibm-java-codegen-common').defaults;
-
-const DEFAULTS = {
-  technologies: {
-    desc: 'Technologies to configure when using the prompt:liberty promptType',
-    type: (value) => {
-      return Array.isArray(value) ? value : value.split(",");
-    },
-    default: ['rest']
-  }
-};
-
-module.exports = class extends defaultModule {
-  constructor() {
-    super(DEFAULTS);
-  }
+module.exports = exports = {
+    libertyVersion: '17.0.0.4',
+    libertyBetaVersion: '2018.+'
 }

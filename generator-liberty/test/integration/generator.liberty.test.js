@@ -18,6 +18,7 @@
  * Tests the Liberty aspects generator
  */
 'use strict'
+const constant = require('../../lib/constant')
 const path = require('path')
 const helpers = require('yeoman-test')
 const AssertLiberty = require('../../lib/assert.liberty')
@@ -47,9 +48,9 @@ class Options extends AssertLiberty {
     }
     if (libertyVersion === 'beta') {
       this.conf.libertyBeta = true
-    }
-    if (libertyVersion === undefined) {
-      this.conf.libertyVersion = '17.0.0.4'
+      this.conf.libertyVersion = constant.libertyBetaVersion
+    } else if (libertyVersion === undefined) {
+      this.conf.libertyVersion = constant.libertyVersion
     } else {
       this.conf.libertyVersion = libertyVersion
     }

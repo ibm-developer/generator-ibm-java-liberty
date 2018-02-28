@@ -18,9 +18,11 @@
 
 'use strict'
 
+const defaults = require('../../lib/constant.js')
+
 const PROMPT_ID = 'prompt:liberty'
 
-function Extension (config) {
+function Extension(config) {
   this.id = PROMPT_ID
   this.config = config
   this.context = undefined
@@ -83,13 +85,33 @@ Extension.prototype.getQuestions = function () {
     type: 'input',
     name: 'artifactId',
     message: 'Enter an artifact id for your project',
-    default: (answers) => {return answers.appName}
+    default: (answers) => {
+      return answers.appName
+    }
   }, {
     when: this.show.bind(this),
     type: 'checkbox',
     name: 'technologies',
     message: 'Select the technologies for your project.',
-    choices: [{name: 'rest'}, {name: 'microprofile'}, {name: 'persistence'}, {name: 'websocket'}, {name: 'web'}, {name: 'watsonsdk'}, {name: 'swagger'}, {name: 'springbootweb'}, {name: 'msbuilder'}],
+    choices: [{
+      name: 'rest'
+    }, {
+      name: 'microprofile'
+    }, {
+      name: 'persistence'
+    }, {
+      name: 'websocket'
+    }, {
+      name: 'web'
+    }, {
+      name: 'watsonsdk'
+    }, {
+      name: 'swagger'
+    }, {
+      name: 'springbootweb'
+    }, {
+      name: 'msbuilder'
+    }],
     validate: function (answer) {
       if (answer.length < 1) {
         return 'You must choose at least one technology.'
@@ -107,13 +129,15 @@ Extension.prototype.getQuestions = function () {
     type: 'input',
     name: 'libertyVersion',
     message: 'Specify version of Liberty--\'beta\' or a specific GA version.',
-    default: '17.0.0.4'
+    default: constant.libertyVersion
   }, {
     when: this.show.bind(this),
     type: 'confirm',
     name: 'javametrics',
     message: 'Enable java metrics for your project',
-    default: (answers) => {return answers.javametrics}
+    default: (answers) => {
+      return answers.javametrics
+    }
   }]
 }
 

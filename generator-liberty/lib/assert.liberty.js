@@ -20,34 +20,34 @@
 'use strict';
 
 const assert = require('yeoman-assert');
+const constant = require('./constant.js')
 const SERVER_XML = 'src/main/liberty/config/server.xml';
 const SERVER_ENV = 'src/main/liberty/config/server.env';
 const README_MD = 'README.md';
 const JVM_OPTIONS = 'src/main/liberty/config/jvm.options';
 const IBM_WEB_EXT = 'src/main/webapp/WEB-INF/ibm-web-ext.xml';
 const JVM_OPTIONS_JAVAAGENT = '-javaagent:resources/javametrics-agent.jar';
-const LIBERTY_BETA_VERSION = '2018.+';   //current Liberty beta version to check for
 const tests = require('ibm-java-codegen-common');
 
 //handy function for checking both existence and non-existence
 function getCheck(exists) {
   return {
-    file : exists ? assert.file : assert.noFile,
-    desc : exists ? 'should create ' : 'should not create ',
-    content : exists ? assert.fileContent : assert.noFileContent
+    file: exists ? assert.file : assert.noFile,
+    desc: exists ? 'should create ' : 'should not create ',
+    content: exists ? assert.fileContent : assert.noFileContent
   }
 }
 
 function getBuildCheck(exists, buildType) {
   return {
-    content : exists ? tests.test(buildType).assertContent : tests.test(buildType).assertNoContent
+    content: exists ? tests.test(buildType).assertContent : tests.test(buildType).assertNoContent
   }
 }
 
 function AssertLiberty() {
-  this.assertAllFiles = function(exists) {
+  this.assertAllFiles = function (exists) {
     const check = getCheck(exists);
-    it(check.desc + 'server.xml, server.env, jvm.options and ibm-web-ext.xml', function() {
+    it(check.desc + 'server.xml, server.env, jvm.options and ibm-web-ext.xml', function () {
       check.file(SERVER_XML);
       check.file(SERVER_ENV);
       check.file(IBM_WEB_EXT);
@@ -56,11 +56,11 @@ function AssertLiberty() {
 
   }
 
-  this.assertJavaMetrics = function(exists, buildType) {
+  this.assertJavaMetrics = function (exists, buildType) {
     const check = getCheck(exists);
     const self = this;
-    describe(check.desc + 'javametrics code, dependencies or features', function() {
-      it(check.desc + 'jvm.options with ' + JVM_OPTIONS_JAVAAGENT, function() {
+    describe(check.desc + 'javametrics code, dependencies or features', function () {
+      it(check.desc + 'jvm.options with ' + JVM_OPTIONS_JAVAAGENT, function () {
         check.content(JVM_OPTIONS, JVM_OPTIONS_JAVAAGENT);
       });
 
@@ -76,24 +76,24 @@ function AssertLiberty() {
     });
   }
 
-  this.assertVersion = function(buildType, libertyVersion) {
-    describe('contains Liberty version ' + libertyVersion, function() {
+  this.assertVersion = function (buildType, libertyVersion) {
+    describe('contains Liberty version ' + libertyVersion, function () {
       const check = getBuildCheck(true, buildType);
-      if(libertyVersion === 'beta') {
-        if(buildType === 'gradle') {
-          check.content('version = "' + LIBERTY_BETA_VERSION + '"');
+      if (libertyVersion === constant.libertyBetaVersion) {
+        if (buildType === 'gradle') {
+          check.content('version = "' + constant.libertyBetaVersion + '"');
         }
-        if(buildType === 'maven') {
-          const betaVersion = LIBERTY_BETA_VERSION.replace(/\./g, '\\.').replace(/\+/g, '\\+');
+        if (buildType === 'maven') {
+          const betaVersion = constant.libertyBetaVersion.replace(/\./g, '\\.').replace(/\+/g, '\\+');
           const betaContent = '<install>\\s*<type>webProfile7</type>\\s*<version>' + betaVersion + '</version>\\s*</install>';
           const betaRegex = new RegExp(betaContent);
           check.content(betaRegex);
         }
       } else {
-        if(buildType === 'gradle') {
+        if (buildType === 'gradle') {
           check.content('wlp-webProfile7:' + libertyVersion);
         }
-        if(buildType === 'maven') {
+        if (buildType === 'maven') {
           const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
           const artifactId = 'wlp-webProfile7';
           const version = libertyVersion.replace(/\./g, '\\.');
@@ -105,82 +105,82 @@ function AssertLiberty() {
     });
   }
 
-  this.assertNotLoose = function(buildType) {
-    if(buildType === 'maven') {
+  this.assertNotLoose = function (buildType) {
+    if (buildType === 'maven') {
       const check = getBuildCheck(true, buildType);
       check.content(new RegExp('<looseApplication>false</looseApplication>'));
     }
   }
 
-  this.assertArtifactID = function(buildType, id) {
+  this.assertArtifactID = function (buildType, id) {
     const check = getBuildCheck(true, buildType);
-    if(buildType === 'gradle') {
-      it('settings.gradle contains root project setting of ' + id, function() {
+    if (buildType === 'gradle') {
+      it('settings.gradle contains root project setting of ' + id, function () {
         assert.fileContent('settings.gradle', 'rootProject.name = \'' + id + '\'');
       });
     }
-    if(buildType === 'maven') {
+    if (buildType === 'maven') {
       check.content('<artifactId>' + id + '</artifactId>');
     }
   }
 
-  this.assertProperties = function(buildType) {
+  this.assertProperties = function (buildType) {
     const check = tests.test(buildType).assertProperty;
     check('testServerHttpPort', '9080');
     check('testServerHttpsPort', '9443');
-    if(buildType === 'gradle') {
+    if (buildType === 'gradle') {
       check('serverDirectory', '"${buildDir}/wlp/usr/servers/defaultServer"');
       check('warContext', '"${appName}"');
       check('packageFile', '"${project.buildDir}/${rootProject.name}-${version}.zip"');
       check('packagingType', "'usr'");
     }
-    if(buildType === 'maven') {
+    if (buildType === 'maven') {
       check('warContext', '${app.name}');
       check('package.file', '${project.build.directory}/${project.artifactId}-${project.version}.zip');
       check('packaging.type', 'usr');
     }
   }
 
-  this.assertJNDI = function(exists, name, value) {
+  this.assertJNDI = function (exists, name, value) {
     const check = getCheck(exists);
-    it(check.desc + 'a server.xml JDNI entry for ' + name + " = " + value, function() {
+    it(check.desc + 'a server.xml JDNI entry for ' + name + " = " + value, function () {
       check.content(SERVER_XML, '<jndiEntry jndiName="' + name + '" value="' + value + '"/>');
     });
   }
 
-  this.assertEnv = function(exists, name, value) {
+  this.assertEnv = function (exists, name, value) {
     const check = getCheck(exists);
-    it(check.desc + 'a server.env entry for ' + name + " = " + value, function() {
+    it(check.desc + 'a server.env entry for ' + name + " = " + value, function () {
       check.content(SERVER_ENV, name + '="' + value + '"');
     });
   }
 
-  this.assertContextRoot = function(name) {
-    it('contains a ibm-web-ext.xml context root for ' + name, function() {
+  this.assertContextRoot = function (name) {
+    it('contains a ibm-web-ext.xml context root for ' + name, function () {
       assert.fileContent(IBM_WEB_EXT, '<context-root uri="/' + name + '"/>');
     });
   }
 
-  this.assertFeature = function(exists, name) {
+  this.assertFeature = function (exists, name) {
     const check = getCheck(exists);
-    it(SERVER_XML + ' ' + check.desc + 'a feature for ' + name, function() {
+    it(SERVER_XML + ' ' + check.desc + 'a feature for ' + name, function () {
       check.content(SERVER_XML, "<feature>" + name + "</feature>");
     });
   }
 
-  this.assertConfig = function(exists, name) {
+  this.assertConfig = function (exists, name) {
     const check = getCheck(exists);
-    it(SERVER_XML + ' ' + check.desc + 'a tag for ' + name, function() {
+    it(SERVER_XML + ' ' + check.desc + 'a tag for ' + name, function () {
       //look for the closing tag as that will not contain optional attiributes
       check.content(SERVER_XML, "</" + name + ">");
     });
   }
 
-  this.assertPlatforms = function(platforms, buildType, appName) {
-    describe('checks build steps for deploying to IBM Cloud', function() {
+  this.assertPlatforms = function (platforms, buildType, appName) {
+    describe('checks build steps for deploying to IBM Cloud', function () {
       const buildCheck = getBuildCheck(platforms.includes('bluemix'), buildType);
       const check = getCheck(platforms.includes('bluemix'));
-      if(buildType === 'gradle') {
+      if (buildType === 'gradle') {
         buildCheck.content("classpath 'org.cloudfoundry:cf-gradle-plugin:1.1.2'");
         buildCheck.content("cfContext = 'mybluemix.net'");
         buildCheck.content("apply plugin: 'cloudfoundry'");
@@ -189,22 +189,22 @@ function AssertLiberty() {
         buildCheck.content('def checkPropertySet(propertyName)');
         buildCheck.content('cloudfoundry {');
         buildCheck.content("cfPush.dependsOn 'printBluemixProperties'");
-        it(check.desc + 'README with gradle deployment instructions', function() {
+        it(check.desc + 'README with gradle deployment instructions', function () {
           check.content(README_MD, 'gradle build cfPush -PcfOrg=[your email address] -PcfUsername=[your username] -PcfPassword=[your password]');
         });
       }
-      if(buildType === 'maven') {
+      if (buildType === 'maven') {
         const profileContent = '<profile>\\s*<id>bluemix</id>';
         const profileRegex = new RegExp(profileContent);
         buildCheck.content(profileRegex);
         const propertyContent = '<cf.context>mybluemix.net</cf.context>';
         const propertyRegex = new RegExp(propertyContent);
         buildCheck.content(propertyRegex);
-        it(check.desc + 'README with maven deployment instructions', function() {
+        it(check.desc + 'README with maven deployment instructions', function () {
           check.content(README_MD, 'mvn install -Pbluemix -Dcf.org=[your email address] -Dcf.username=[your username] -Dcf.password=[your password]');
         });
       }
-      it(check.desc + 'README deployment instructions', function() {
+      it(check.desc + 'README deployment instructions', function () {
         check.content(README_MD, '**Create Toolchain** button');
         check.content(README_MD, 'contains IBM Cloud specific files');
         check.content(README_MD, 'To deploy the application to IBM Cloud:');
