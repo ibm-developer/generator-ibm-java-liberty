@@ -58,9 +58,9 @@ dependencies {
         {{/each}}
     } {{/if}}
     {{/each}}
-    {{#unless libertybeta}}
-    libertyRuntime ('com.ibm.websphere.appserver.runtime:wlp-webProfile7:17.0.0.4')
-    {{/unless}}
+    {{^libertyBeta}}
+    libertyRuntime ('com.ibm.websphere.appserver.runtime:wlp-webProfile7:{{libertyVersion}}')
+    {{/libertyBeta}}
 }
 
 test {
@@ -88,11 +88,11 @@ task printMessageAboutRunningServer {
 }
 
 liberty {
-    {{#libertybeta}}
+    {{#libertyBeta}}
     install {
-        version = "2018.+"
+        version = "{{libertyVersion}}"
     }
-    {{/libertybeta}}
+    {{/libertyBeta}}
     server{
         apps = [war]
         configFile = file("src/main/liberty/config/server.xml")

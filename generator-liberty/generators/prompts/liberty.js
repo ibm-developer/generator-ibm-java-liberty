@@ -18,7 +18,7 @@
 
 'use strict'
 
-const defaults = require('../../lib/constant.js')
+const constant = require('../../lib/constant.js')
 
 const PROMPT_ID = 'prompt:liberty'
 
