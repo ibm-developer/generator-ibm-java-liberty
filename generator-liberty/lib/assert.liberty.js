@@ -79,7 +79,9 @@ function AssertLiberty() {
   this.assertVersion = function (buildType, libertyVersion) {
     describe('contains Liberty version ' + libertyVersion, function () {
       const check = getBuildCheck(true, buildType);
-      if (libertyVersion === constant.libertyBetaVersion) {
+      if (libertyVersion === undefined) {
+        assertLibertyGA(check, buildType, constant.libertyVersion)
+      } else if (libertyVersion === constant.libertyBetaVersion) {
         if (buildType === 'gradle') {
           check.content('version = "' + constant.libertyBetaVersion + '"');
         }
@@ -90,19 +92,23 @@ function AssertLiberty() {
           check.content(betaRegex);
         }
       } else {
-        if (buildType === 'gradle') {
-          check.content('wlp-webProfile7:' + libertyVersion);
-        }
-        if (buildType === 'maven') {
-          const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
-          const artifactId = 'wlp-webProfile7';
-          const version = libertyVersion.replace(/\./g, '\\.');
-          const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
-          const regex = new RegExp(content);
-          check.content(regex);
-        }
+        assertLibertyGA(check, buildType, libertyVersion)
       }
     });
+  }
+
+  const assertLibertyGA = function (check, buildType, libertyVersion) {
+    if (buildType === 'gradle') {
+      check.content('wlp-webProfile7:' + libertyVersion);
+    }
+    if (buildType === 'maven') {
+      const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
+      const artifactId = 'wlp-webProfile7';
+      const version = libertyVersion.replace(/\./g, '\\.');
+      const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
+      const regex = new RegExp(content);
+      check.content(regex);
+    }
   }
 
   this.assertNotLoose = function (buildType) {

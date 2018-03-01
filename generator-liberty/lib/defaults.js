@@ -18,6 +18,7 @@
 
 'use strict';
 
+const constant = require('../lib/constant')
 const defaultModule = require('ibm-java-codegen-common').defaults;
 
 const DEFAULTS = {
@@ -27,6 +28,11 @@ const DEFAULTS = {
       return Array.isArray(value) ? value : value.split(",");
     },
     default: ['rest']
+  },
+  libertyVersion: {
+    desc: 'Version of Liberty to use',
+    type: String,
+    default: constant.libertyVersion
   }
 };
 
