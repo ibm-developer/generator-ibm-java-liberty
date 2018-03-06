@@ -17,7 +17,10 @@
 /**
  * Tests the Liberty aspects generator
  */
+
 'use strict'
+
+const constant = require('../../lib/constant')
 const path = require('path')
 const helpers = require('yeoman-test')
 const AssertLiberty = require('../../lib/assert.liberty')
@@ -29,8 +32,7 @@ const VERSION = '1.0.0'
 const APPNAME = 'testApp'
 
 class Options extends AssertLiberty {
-
-  constructor (buildType, createType, platforms, jndiEntries, envEntries, frameworkDependencies, javametrics, libertybeta) {
+  constructor(buildType, createType, platforms, jndiEntries, envEntries, frameworkDependencies, javametrics, libertyVersion) {
     super()
     this.conf = {
       buildType: buildType,
@@ -44,8 +46,15 @@ class Options extends AssertLiberty {
       appName: APPNAME,
       groupId: GROUPID,
       artifactId: ARTIFACTID,
-      version: VERSION,
-      libertybeta: libertybeta
+      version: VERSION
+    }
+    if (libertyVersion === 'beta') {
+      this.conf.libertyBeta = true
+      this.conf.libertyVersion = constant.libertyBetaVersion
+    } else if (libertyVersion === undefined) {
+      this.conf.libertyVersion = constant.libertyVersion
+    } else {
+      this.conf.libertyVersion = libertyVersion
     }
     const ctx = new common.context('test', this.conf)
     this.options = {
@@ -57,26 +66,35 @@ class Options extends AssertLiberty {
         .toPromise()
     }
   }
-
 }
 
 const buildTypes = ['gradle', 'maven']
-const platforms = [[], ['bluemix']]
-const jndiEntries = [{name: 'jndiName', value: 'jndiValue'}]
-const envEntries = [{name: 'envName', value: 'envValue'}]
-const frameworkDependencies = [{'feature': 'testfeature'}]
+const platforms = [
+  [],
+  ['bluemix']
+]
+const jndiEntries = [{
+  name: 'jndiName',
+  value: 'jndiValue'
+}]
+const envEntries = [{
+  name: 'envName',
+  value: 'envValue'
+}]
+const frameworkDependencies = [{
+  'feature': 'testfeature'
+}]
 
 describe('java liberty generator : Liberty server integration test', function () {
-
   buildTypes.forEach(buildType => {
     platforms.forEach(platformArray => {
       describe('Generates server configuration (no technologies) ' + buildType + ' with platforms ' + platformArray, function () {
-        const options = new Options(buildType, 'picnmix', platformArray, jndiEntries, envEntries, frameworkDependencies, false, false)
+        const options = new Options(buildType, 'picnmix', platformArray, jndiEntries, envEntries, frameworkDependencies, false)
         before(options.before.bind(options))
         options.assertAllFiles(true)
         options.assertJavaMetrics(false, buildType)
         options.assertContextRoot(APPNAME)
-        options.assertVersion(buildType, false)
+        options.assertVersion(buildType, options.conf.libertyVersion)
         options.assertProperties(buildType)
         options.assertPlatforms(platformArray, buildType, APPNAME)
         options.assertNotLoose(buildType)
@@ -93,22 +111,21 @@ describe('java liberty generator : Liberty server integration test', function ()
     })
 
     describe('Check artifact id for ' + buildType, function () {
-      const options = new Options(buildType, 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, false, false)
+      const options = new Options(buildType, 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, false)
       before(options.before.bind(options))
       options.assertArtifactID(buildType, options.conf.artifactId)
     })
 
-    describe('Generates correct build config when libertybeta is set to true', function () {
-      const options = new Options(buildType, 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, false, true)
+    describe('Generates correct build config when libertyVersion is set to beta', function () {
+      const options = new Options(buildType, 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, false, 'beta')
       before(options.before.bind(options))
-      options.assertVersion(buildType, true)
+      options.assertVersion(buildType, options.conf.libertyVersion)
     })
   })
-
 })
 
 describe('Generates server configuration (no technologies) maven with deploy type with java metrics', function () {
-  const options = new Options('maven', 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, true, false)
+  const options = new Options('maven', 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, true)
   before(options.before.bind(options))
   options.assertAllFiles(true)
   options.assertJavaMetrics(true, 'maven')

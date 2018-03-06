@@ -16,6 +16,7 @@
 
 'use strict';
 
+const constant = require('../../lib/constant')
 const Generator = require('yeoman-generator');
 const extend = require('extend');
 const Defaults = require('../../lib/defaults');
@@ -30,7 +31,7 @@ module.exports = class extends Generator {
     super(args, opts);
     //create command line options that will be passed by YaaS
     defaults.setOptions(this);
-    extend(this, opts.context);   //inject the objects and functions directly into 'this' to make things easy
+    extend(this, opts.context); //inject the objects and functions directly into 'this' to make things easy
     this.logger.writeToLog(`${logId}:constructor - context`, opts.context);
     this.patterns.push('picnmix');
     this.conf.addMissing(opts, defaults);
@@ -39,9 +40,7 @@ module.exports = class extends Generator {
     this.logger.writeToLog(`${logId}:constructor -  conf (final)`, this.conf);
   }
 
-  initializing() {
-  }
-
+  initializing() {}
 
   prompting() {
     //this generator does not prompt, questions can be set in the prompts directory for testing purposes
@@ -49,11 +48,11 @@ module.exports = class extends Generator {
 
   configuring() {
     this.configure(this);
-    if(this.conf.technologies.includes('swagger')) {
+    if (this.conf.technologies.includes('swagger')) {
       this.conf.enableApiDiscovery = true;
     }
     this.openApiDir = [];
-    if(this.conf.bluemix && this.conf.bluemix.openApiServers && this.conf.bluemix.backendPlatform == 'JAVA' ) {
+    if (this.conf.bluemix && this.conf.bluemix.openApiServers && this.conf.bluemix.backendPlatform == 'JAVA') {
       this.conf.enableApiDiscovery = true;
       return OpenApi.generate(this.conf.bluemix.openApiServers)
         .then(dir => {
@@ -63,19 +62,23 @@ module.exports = class extends Generator {
   }
 
   writing() {
-    if(this.conf.buildType == 'maven') {
+    if (this.conf.buildType == 'maven') {
       this.conf.bxBuildCmd = '`mvn install -Pbluemix -Dcf.org=[your email address] -Dcf.username=[your username] -Dcf.password=[your password]`';
     }
-    if(this.conf.buildType == 'gradle') {
+    if (this.conf.buildType == 'gradle') {
       this.conf.bxBuildCmd = '`gradle build cfPush -PcfOrg=[your email address] -PcfUsername=[your username] -PcfPassword=[your password]`';
     }
-    if(this.openApiDir.length > 0) {
+    if (this.conf.libertyVersion === undefined) {
+      this.conf.libertyVersion = constant.libertyVersion
+    } else if (this.conf.libertyVersion === 'beta') {
+      this.conf.libertyBeta = true
+      this.conf.libertyVersion = constant.libertyBetaVersion
+    }
+    if (this.openApiDir.length > 0) {
       OpenApi.writeFiles(this.openApiDir, this);
     }
-    return this.defaultWriter(this);   //use the default writer supplied by the context.
+    return this.defaultWriter(this); //use the default writer supplied by the context.
   }
 
-  end() {
-  }
-
+  end() {}
 };
