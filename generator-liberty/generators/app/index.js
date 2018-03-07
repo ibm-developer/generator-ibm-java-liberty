@@ -26,7 +26,6 @@ const defaults = new Defaults();
 const logId = require('../../package.json').name;
 
 module.exports = class extends Generator {
-
   constructor(args, opts) {
     super(args, opts);
     //create command line options that will be passed by YaaS
@@ -37,6 +36,18 @@ module.exports = class extends Generator {
     this.conf.addMissing(opts, defaults);
     this.openApiDir = [];
     this.conf.enableApiDiscovery = this.config.enableApiDiscovery || false;
+
+    const generatorOptions = opts.generatorOptions
+    if (typeof generatorOptions === 'string') {
+      const generatorOptionsObject = JSON.parse(generatorOptions)
+      if (generatorOptionsObject && generatorOptionsObject.libertyVersion === 'beta') {
+        this.conf.libertyBeta = true
+        this.conf.libertyVersion = constant.libertyBetaVersion
+      } else {
+        this.conf.libertyVersion = constant.libertyVersion
+      }
+    }
+
     this.logger.writeToLog(`${logId}:constructor -  conf (final)`, this.conf);
   }
 
@@ -67,12 +78,6 @@ module.exports = class extends Generator {
     }
     if (this.conf.buildType == 'gradle') {
       this.conf.bxBuildCmd = '`gradle build cfPush -PcfOrg=[your email address] -PcfUsername=[your username] -PcfPassword=[your password]`';
-    }
-    if (this.conf.libertyVersion === 'beta') {
-      this.conf.libertyBeta = true
-      this.conf.libertyVersion = constant.libertyBetaVersion
-    } else if (this.conf.libertyVersion !== constant.libertyBetaVersion) {
-      this.conf.libertyVersion = constant.libertyVersion
     }
     if (this.openApiDir.length > 0) {
       OpenApi.writeFiles(this.openApiDir, this);
