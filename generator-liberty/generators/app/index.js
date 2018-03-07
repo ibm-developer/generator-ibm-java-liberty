@@ -68,11 +68,11 @@ module.exports = class extends Generator {
     if (this.conf.buildType == 'gradle') {
       this.conf.bxBuildCmd = '`gradle build cfPush -PcfOrg=[your email address] -PcfUsername=[your username] -PcfPassword=[your password]`';
     }
-    if (this.conf.libertyVersion === undefined) {
-      this.conf.libertyVersion = constant.libertyVersion
-    } else if (this.conf.libertyVersion === 'beta') {
+    if (this.conf.libertyVersion === 'beta') {
       this.conf.libertyBeta = true
       this.conf.libertyVersion = constant.libertyBetaVersion
+    } else if (this.conf.libertyVersion !== constant.libertyBetaVersion) {
+      this.conf.libertyVersion = constant.libertyVersion
     }
     if (this.openApiDir.length > 0) {
       OpenApi.writeFiles(this.openApiDir, this);
