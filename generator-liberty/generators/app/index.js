@@ -36,15 +36,13 @@ module.exports = class extends Generator {
     this.conf.addMissing(opts, defaults);
     this.openApiDir = [];
     this.conf.enableApiDiscovery = this.config.enableApiDiscovery || false;
-
+    
     const generatorOptions = opts.generatorOptions
     if (typeof generatorOptions === 'string') {
       const generatorOptionsObject = JSON.parse(generatorOptions)
       if (generatorOptionsObject && generatorOptionsObject.libertyVersion === 'beta') {
         this.conf.libertyBeta = true
         this.conf.libertyVersion = constant.libertyBetaVersion
-      } else {
-        this.conf.libertyVersion = constant.libertyVersion
       }
     }
 
