@@ -51,8 +51,6 @@ class Options extends AssertLiberty {
     if (libertyVersion === 'beta') {
       this.conf.libertyBeta = true
       this.conf.libertyVersion = constant.libertyBetaVersion
-    } else {
-      this.conf.libertyVersion = constant.libertyVersion
     }
     const ctx = new common.context('test', this.conf)
     this.options = {
