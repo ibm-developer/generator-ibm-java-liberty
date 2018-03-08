@@ -89,14 +89,13 @@ function AssertLiberty() {
           check.content(betaRegex);
         }
       } else {
-        libertyVersion = constant.libertyVersion
         if (buildType === 'gradle') {
-          check.content('wlp-webProfile7:' + libertyVersion);
+          check.content('wlp-webProfile7:' + constant.libertyVersion);
         }
         if (buildType === 'maven') {
           const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
           const artifactId = 'wlp-webProfile7';
-          const version = libertyVersion.replace(/\./g, '\\.');
+          const version = constant.libertyVersion.replace(/\./g, '\\.');
           const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
           const regex = new RegExp(content);
           check.content(regex);
