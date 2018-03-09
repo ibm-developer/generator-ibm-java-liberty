@@ -51,10 +51,6 @@ class Options extends AssertLiberty {
     if (libertyVersion === 'beta') {
       this.conf.libertyBeta = true
       this.conf.libertyVersion = constant.libertyBetaVersion
-    } else if (libertyVersion === undefined) {
-      this.conf.libertyVersion = constant.libertyVersion
-    } else {
-      this.conf.libertyVersion = libertyVersion
     }
     const ctx = new common.context('test', this.conf)
     this.options = {
@@ -94,7 +90,7 @@ describe('java liberty generator : Liberty server integration test', function ()
         options.assertAllFiles(true)
         options.assertJavaMetrics(false, buildType)
         options.assertContextRoot(APPNAME)
-        options.assertVersion(buildType, options.conf.libertyVersion)
+        options.assertVersion(buildType)
         options.assertProperties(buildType)
         options.assertPlatforms(platformArray, buildType, APPNAME)
         options.assertNotLoose(buildType)
