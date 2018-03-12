@@ -37,6 +37,8 @@ module.exports = class extends Generator {
     this.openApiDir = [];
     this.conf.enableApiDiscovery = this.config.enableApiDiscovery || false;
     
+    this.conf.libertyVersion = constant.libertyVersion
+    
     const generatorOptions = opts.generatorOptions
     if (typeof generatorOptions === 'string') {
       const generatorOptionsObject = JSON.parse(generatorOptions)
