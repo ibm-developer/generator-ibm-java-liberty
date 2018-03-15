@@ -20,7 +20,6 @@
 
 'use strict'
 
-const constant = require('../../lib/constant')
 const path = require('path')
 const helpers = require('yeoman-test')
 const AssertLiberty = require('../../lib/assert.liberty')
@@ -46,11 +45,8 @@ class Options extends AssertLiberty {
       appName: APPNAME,
       groupId: GROUPID,
       artifactId: ARTIFACTID,
-      version: VERSION
-    }
-    if (libertyVersion === 'beta') {
-      this.conf.libertyBeta = true
-      this.conf.libertyVersion = constant.libertyBetaVersion
+      version: VERSION,
+      libertyVersion: libertyVersion
     }
     const ctx = new common.context('test', this.conf)
     this.options = {
@@ -115,7 +111,7 @@ describe('java liberty generator : Liberty server integration test', function ()
     describe('Generates correct build config when libertyVersion is set to beta', function () {
       const options = new Options(buildType, 'picnmix', [], jndiEntries, envEntries, frameworkDependencies, false, 'beta')
       before(options.before.bind(options))
-      options.assertVersion(buildType, options.conf.libertyVersion)
+      options.assertVersion(buildType, 'beta')
     })
   })
 })

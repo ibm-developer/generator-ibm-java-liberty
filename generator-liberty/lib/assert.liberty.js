@@ -78,7 +78,7 @@ function AssertLiberty() {
   this.assertVersion = function (buildType, libertyVersion) {
     describe('contains Liberty version ' + libertyVersion, function () {
       const check = getBuildCheck(true, buildType);
-      if (libertyVersion === constant.libertyBetaVersion) {
+      if (libertyVersion === 'beta') {
         if (buildType === 'gradle') {
           check.content('version = "' + constant.libertyBetaVersion + '"');
         }

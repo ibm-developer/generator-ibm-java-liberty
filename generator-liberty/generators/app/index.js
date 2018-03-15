@@ -31,24 +31,20 @@ module.exports = class extends Generator {
     //create command line options that will be passed by YaaS
     defaults.setOptions(this);
     extend(this, opts.context); //inject the objects and functions directly into 'this' to make things easy
-    this.logger.writeToLog(`${logId}:constructor - context`, opts.context);
+    this.logger.writeToLog(`${logId}:constructor - context`, JSON.stringify(opts.context));
     this.patterns.push('picnmix');
     this.conf.addMissing(opts, defaults);
     this.openApiDir = [];
     this.conf.enableApiDiscovery = this.config.enableApiDiscovery || false;
-    
-    const generatorOptions = opts.generatorOptions
-    if (typeof generatorOptions === 'string') {
-      const generatorOptionsObject = JSON.parse(generatorOptions)
-      if (generatorOptionsObject.options.libertyVersion === 'beta') {
-        this.conf.libertyBeta = true
-        this.conf.libertyVersion = constant.libertyBetaVersion
-      } else {
-        this.conf.libertyVersion = constant.libertyVersion
-      }
+
+    if (this.options.libertyVersion === 'beta' || opts.context.conf.libertyVersion === 'beta') {
+      this.conf.libertyBeta = true
+      this.conf.libertyVersion = constant.libertyBetaVersion
+    } else {
+      this.conf.libertyVersion = constant.libertyVersion
     }
 
-    this.logger.writeToLog(`${logId}:constructor -  conf (final)`, this.conf);
+    this.logger.writeToLog(`${logId}:constructor -  conf (final)`, JSON.stringify(this.conf));
   }
 
   initializing() {}
