@@ -105,14 +105,15 @@ function AssertLiberty() {
       check.content('wlp-webProfile7:' + libertyVersion);
     }
     if (buildType === 'maven') {
-      const groupId = 'com.ibm.websphere.appserver.runtime';
-      const artifactId = 'wlp-webProfile7';
+      const groupId = escapeStringRegexp('com.ibm.websphere.appserver.runtime');
+      const artifactId = escapeStringRegexp('wlp-webProfile7');
+      const version = escapeStringRegexp(libertyVersion);
 
-      const content = '<assemblyArtifact>\s*<groupId>' + groupId + '</groupId>\s*<artifactId>' + artifactId + '</artifactId>\s*<version>' + libertyVersion + '</version>\s*<type>zip</type>\s*</assemblyArtifact>';
-      const exp = escapeStringRegexp(content);
+      const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
 
-      console.log("expression: " + exp);
-      const regex = new RegExp(exp);
+      console.log("expression: " + content);
+      const regex = new RegExp(content);
+      check.content(regex);
     }
   }
 
