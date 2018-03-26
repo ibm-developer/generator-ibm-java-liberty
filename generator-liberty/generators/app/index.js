@@ -26,18 +26,25 @@ const defaults = new Defaults();
 const logId = require('../../package.json').name;
 
 module.exports = class extends Generator {
-
   constructor(args, opts) {
     super(args, opts);
     //create command line options that will be passed by YaaS
     defaults.setOptions(this);
     extend(this, opts.context); //inject the objects and functions directly into 'this' to make things easy
-    this.logger.writeToLog(`${logId}:constructor - context`, opts.context);
+    this.logger.writeToLog(`${logId}:constructor - context`, JSON.stringify(opts.context));
     this.patterns.push('picnmix');
     this.conf.addMissing(opts, defaults);
     this.openApiDir = [];
     this.conf.enableApiDiscovery = this.config.enableApiDiscovery || false;
-    this.logger.writeToLog(`${logId}:constructor -  conf (final)`, this.conf);
+
+    if (this.options.libertyVersion === 'beta' || opts.context.conf.libertyVersion === 'beta') {
+      this.conf.libertyBeta = true
+      this.conf.libertyVersion = constant.libertyBetaVersion
+    } else {
+      this.conf.libertyVersion = constant.libertyVersion
+    }
+
+    this.logger.writeToLog(`${logId}:constructor -  conf (final)`, JSON.stringify(this.conf));
   }
 
   initializing() {}
@@ -67,12 +74,6 @@ module.exports = class extends Generator {
     }
     if (this.conf.buildType == 'gradle') {
       this.conf.bxBuildCmd = '`gradle build cfPush -PcfOrg=[your email address] -PcfUsername=[your username] -PcfPassword=[your password]`';
-    }
-    if (this.conf.libertyVersion === undefined) {
-      this.conf.libertyVersion = constant.libertyVersion
-    } else if (this.conf.libertyVersion === 'beta') {
-      this.conf.libertyBeta = true
-      this.conf.libertyVersion = constant.libertyBetaVersion
     }
     if (this.openApiDir.length > 0) {
       OpenApi.writeFiles(this.openApiDir, this);

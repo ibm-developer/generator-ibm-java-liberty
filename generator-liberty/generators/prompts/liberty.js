@@ -128,7 +128,7 @@ Extension.prototype.getQuestions = function () {
     when: this.show.bind(this),
     type: 'input',
     name: 'libertyVersion',
-    message: 'Specify version of Liberty--\'beta\' or a specific GA version.',
+    message: 'Enter \'beta\' for beta, otherwise uses latest GA.',
     default: constant.libertyVersion
   }, {
     when: this.show.bind(this),
