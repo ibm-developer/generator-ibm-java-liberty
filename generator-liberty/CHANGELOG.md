@@ -2,6 +2,22 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.3.0"></a>
+# [8.3.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.1.1...v8.3.0) (2018-03-26)
+
+
+### Bug Fixes
+
+* Change Liberty version logic ([#35](https://github.com/ibm-developer/generator-ibm-java-liberty/issues/35)) ([2362626](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/2362626))
+* Use correct webProfile7 version ([590fa2e](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/590fa2e))
+
+
+### Features
+
+* Add support for specifying what Liberty version to use. ([#31](https://github.com/ibm-developer/generator-ibm-java-liberty/issues/31)) ([4c69a13](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/4c69a13))
+
+
+
 <a name="8.2.0"></a>
 # [8.2.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.1.1...v8.2.0) (2018-03-06)
 
