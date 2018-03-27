@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.5.0"></a>
+# [8.5.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.4.0...v8.5.0) (2018-03-27)
+
+
+### Features
+
+* Use SDKGen for Liberty BFF ([497bbe6](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/497bbe6))
+
+
+
 <a name="8.4.0"></a>
 # [8.4.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.1.1...v8.4.0) (2018-03-26)
 
