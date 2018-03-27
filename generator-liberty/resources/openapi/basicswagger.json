@@ -1,6 +1,7 @@
 {
     "swagger": "2.0",
     "info": {
+        "title": "Test Swagger JSON",
         "description": "Info APIs for Collective",
         "version": "1.0.0"
     },
@@ -20,7 +21,10 @@
                         }
                     },
                     "404": {
-                        "description": "Invalid path"
+                        "description": "Invalid path",
+                        "schema":{
+                            "$ref":"#/definitions/NotFound"
+                        }
                     }
                 }
             }
@@ -32,6 +36,14 @@
                 "name": {
                     "type": "string",
                     "description": "Name of the collective"
+                }
+            }
+        },
+        "NotFound": {
+            "properties": {
+                "name": {
+                    "type": "string",
+                    "description": "Response object for 404"
                 }
             }
         }
