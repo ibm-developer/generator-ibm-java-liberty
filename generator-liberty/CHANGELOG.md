@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.5.1-alpha.0"></a>
+## [8.5.1-alpha.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.0...v8.5.1-alpha.0) (2018-03-28)
+
+
+### Bug Fixes
+
+* **build:** add "--" for npm run scripts to fix passing arguments ([678f7ec](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/678f7ec))
+
+
+
 <a name="8.5.0"></a>
 # [8.5.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.4.0...v8.5.0) (2018-03-27)
 
