@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.5.1"></a>
+## [8.5.1](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.1-alpha.0...v8.5.1) (2018-03-29)
+
+
+### Bug Fixes
+
+* Change SDKGen URL ([e2947af](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/e2947af))
+
+
+
 <a name="8.5.1-alpha.0"></a>
 ## [8.5.1-alpha.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.0...v8.5.1-alpha.0) (2018-03-28)
 
