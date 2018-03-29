@@ -29,7 +29,8 @@ const log = require('ibm-java-codegen-common').log
 Promise.promisifyAll(request)
 
 //const sdkGenURL = 'https://mobilesdkgen.ng.bluemix.net/sdkgen/api/generator/'
-const sdkGenURL = 'https://staging.devex.bluemix.net:443/sdkgen/api/generator/'
+//const sdkGenURL = 'https://staging.devex.bluemix.net:443/sdkgen/api/generator/'
+const sdkGenURL = 'https://glb.devex.bluemix.net/sdkgen/api/generator/'
 const sdkGenCheckDelay = 3000
 
 let logger = log
