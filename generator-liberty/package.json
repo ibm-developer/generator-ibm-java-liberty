@@ -20,12 +20,13 @@
     "yeoman-assert": "^2.2.2"
   },
   "devDependencies": {
-    "mocha": "^3.2.0",
-    "yeoman-test": "^1.6.0",
-    "standard-version": "^4.2.0",
     "coveralls": "^2.13.3",
     "eslint": "^4.13.1",
-    "nyc": "^11.3.0"
+    "mocha": "^3.2.0",
+    "nyc": "^11.3.0",
+    "standard-version": "^4.2.0",
+    "xunit-file": "^1.0.0",
+    "yeoman-test": "^1.6.0"
   },
   "scripts": {
     "test": "nyc mocha test/unit/*",
@@ -35,6 +36,7 @@
     "testtech": "nyc mocha test/integration/generator.technologies.*",
     "testopenapi": "nyc mocha test/integration/generator.openapi.test.js",
     "lint": "eslint .",
+    "mocha": "nyc --reporter=lcov mocha --recursive -R xunit-file",
     "coveralls": "nyc report --reporter=text-lcov | coveralls",
     "prerelease": "npm test && npm run testint",
     "release": "standard-version"
