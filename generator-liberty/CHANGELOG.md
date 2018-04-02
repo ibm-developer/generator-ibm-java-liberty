@@ -2,6 +2,11 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.5.2"></a>
+## [8.5.2](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.1...v8.5.2) (2018-04-02)
+
+
+
 <a name="8.5.1"></a>
 ## [8.5.1](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.1-alpha.0...v8.5.1) (2018-03-29)
 
