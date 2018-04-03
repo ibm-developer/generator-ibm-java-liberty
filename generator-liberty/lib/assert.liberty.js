@@ -27,7 +27,9 @@ const README_MD = 'README.md';
 const JVM_OPTIONS = 'src/main/liberty/config/jvm.options';
 const IBM_WEB_EXT = 'src/main/webapp/WEB-INF/ibm-web-ext.xml';
 const JVM_OPTIONS_JAVAAGENT = '-javaagent:resources/javametrics-agent.jar';
+
 const tests = require('ibm-java-codegen-common');
+const escapeStringRegexp = require('escape-string-regexp');
 
 //handy function for checking both existence and non-existence
 function getCheck(exists) {
@@ -93,9 +95,10 @@ function AssertLiberty() {
           check.content('wlp-webProfile7:' + constant.libertyVersion);
         }
         if (buildType === 'maven') {
-          const groupId = 'com\\.ibm\\.websphere\\.appserver\\.runtime';
-          const artifactId = 'wlp-webProfile7';
-          const version = constant.libertyVersion.replace(/\./g, '\\.');
+          const groupId = escapeStringRegexp('com.ibm.websphere.appserver.runtime');
+          const artifactId = escapeStringRegexp('wlp-webProfile7');
+          const version = escapeStringRegexp(constant.libertyVersion);
+
           const content = '<assemblyArtifact>\\s*<groupId>' + groupId + '</groupId>\\s*<artifactId>' + artifactId + '</artifactId>\\s*<version>' + version + '</version>\\s*<type>zip</type>\\s*</assemblyArtifact>';
           const regex = new RegExp(content);
           check.content(regex);

@@ -10,14 +10,15 @@
     "resources"
   ],
   "dependencies": {
-    "handlebars": "^4.0.0",
-    "yeoman-generator": "^1.0.0",
-    "extend": "^3.0.1",
-    "ibm-java-codegen-common": "3.0.0",
-    "unzip2": "^0.2.5",
     "bluebird": "^3.5.0",
+    "escape-string-regexp": "^1.0.5",
+    "extend": "^3.0.1",
+    "handlebars": "^4.0.0",
+    "ibm-java-codegen-common": "3.0.0",
     "request": "^2.81.0",
-    "yeoman-assert": "^2.2.2"
+    "unzip2": "^0.2.5",
+    "yeoman-assert": "^2.2.2",
+    "yeoman-generator": "^1.0.0"
   },
   "devDependencies": {
     "coveralls": "^2.13.3",
