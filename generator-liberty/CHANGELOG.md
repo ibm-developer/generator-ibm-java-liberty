@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.6.0"></a>
+# [8.6.0](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.2...v8.6.0) (2018-04-03)
+
+
+### Features
+
+* **templates:** Update Liberty runtime to version 18.0.0.1 ([4f3d549](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/4f3d549))
+
+
+
 <a name="8.5.2"></a>
 ## [8.5.2](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.5.1...v8.5.2) (2018-04-02)
 
