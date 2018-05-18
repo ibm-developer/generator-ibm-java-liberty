@@ -1,6 +1,6 @@
 {
   "name": "generator-ibm-java-liberty",
-  "version": "8.6.1",
+  "version": "8.6.2",
   "description": "Liberty and Java EE code generation and modification",
   "license": "Apache-2.0",
   "main": "index.js",
