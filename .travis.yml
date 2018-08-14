@@ -10,7 +10,7 @@ before_install:
   - export GRADLE_HOME=$PWD/gradle-3.5
   - export PATH=$GRADLE_HOME/bin:$PWD/hub-linux-386-2.2.9/bin/:$PATH
   - gradle -v
-  - nvm install 6.9.1
+  - nvm install 8.9.4
   - cd ./generator-liberty
   - npm i -g makeshift && makeshift -r https://registry.npmjs.org
 install:
@@ -23,5 +23,5 @@ script:
   - ../deploy.sh
 branches:
   only:
-  - development
+  - develop
   - master
