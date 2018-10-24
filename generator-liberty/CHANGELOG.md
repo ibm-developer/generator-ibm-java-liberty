@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.6.5"></a>
+## [8.6.5](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.6.4...v8.6.5) (2018-10-24)
+
+
+### Bug Fixes
+
+* increase pollingRate ([633e13a](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/633e13a))
+* increase pollingRate ([925bac1](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/925bac1))
+
+
+
 <a name="8.6.4"></a>
 ## [8.6.4](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.6.3...v8.6.4) (2018-08-14)
 
