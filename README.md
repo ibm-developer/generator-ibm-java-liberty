@@ -1,4 +1,9 @@
-# Yeoman generator for MicroProfile / Java EE code
+# This repository is deprecated. The Liberty generator has been merged into the Java generator at: 
+### https://github.com/ibm-developer/generator-ibm-java/tree/develop/generator-java/generators/liberty
+  
+<br/><br/>
+
+### Yeoman generator for MicroProfile / Java EE code
 
 [![Travis][img-travis]][url-travis]
 [![Coveralls][img-coveralls-master]][url-coveralls-master]
