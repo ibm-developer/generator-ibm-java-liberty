@@ -2,6 +2,16 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+<a name="8.6.6"></a>
+## [8.6.6](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.6.5...v8.6.6) (2018-11-02)
+
+
+### Bug Fixes
+
+* Deprecated text in README ([b950632](https://github.com/ibm-developer/generator-ibm-java-liberty/commit/b950632))
+
+
+
 <a name="8.6.5"></a>
 ## [8.6.5](https://github.com/ibm-developer/generator-ibm-java-liberty/compare/v8.6.4...v8.6.5) (2018-10-24)
 
